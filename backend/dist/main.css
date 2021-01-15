@@ -1,0 +1,22 @@
+@keyframes shaking {
+  from {
+    transform: rotate(-5deg); }
+  50% {
+    transform: rotate(5deg); }
+  to {
+    transform: rotate(-5deg); } }
+.body {
+  width: 500px;
+  height: 300px;
+}
+
+@media (min-width: 940px) and (max-width: 1023.98px) {
+  .body {
+    width: 300px;
+  }
+}
+@media (min-width: 768px) and (max-width: 939.98px) {
+  .body {
+    width: 300px;
+  }
+}
