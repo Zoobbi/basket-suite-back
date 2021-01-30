@@ -14,7 +14,7 @@ module.exports.create = async (req, res) => {
         }).save();
         const team = await Team.updateOne({ _id: player.team }, { $push: { players: player._id }});
         res.status(201).json({
-            message: 'player created'
+            message: 'Игрок создан'
         })
     } catch (e) {
         errorHandler(res, e);
@@ -23,9 +23,10 @@ module.exports.create = async (req, res) => {
 
 module.exports.remove = async (req, res) => {
     try {
-        const player = await Player.findOneAndDelete(req.params.id);
-        res.status(201).json({
-            message: 'player has been deleted'
+        const {id} = req.params;
+        await Player.deleteOne({ _id: id });
+        res.status(200).json({
+            message: 'Игрок удален'
         })
     } catch (e) {
         errorHandler(res, e);
@@ -42,7 +43,6 @@ module.exports.getAll = async (req, res) => {
 };
 
 module.exports.getById = async (req, res) => {
-    console.log('222')
     try {
         const player = await Player.findOne({
             _id: req.params.id
@@ -55,8 +55,15 @@ module.exports.getById = async (req, res) => {
 };
 
 module.exports.patch = async (req, res) => {
+    const {id} = req.params;
+    const data = req.body;
+
     try {
-        const player = await Player.updateOne({ _id: player.team }, { $push: { players: player._id }});
+        const player = await Player.findByIdAndUpdate(id, {...data} );
+        res.status(200).json({
+            player,
+            message:'Игрок обновлен'
+        });
     } catch (e) {
         errorHandler(res, e);
     }

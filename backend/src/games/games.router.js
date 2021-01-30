@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const pasport = require('passport');
 const controller = require('./games.controller');
 
-router.post('/', pasport.authenticate('jwt', {session: false}), controller.create);
+router.post('/', controller.create);
 router.delete('/:id',controller.remove);
-router.get('/', controller.getAll);
-router.get('/:gameId', controller.getByGameId);
+router.get('/all/:league_id', controller.getAll);
+router.get('/:id', controller.getByGameId);
 
 module.exports = router;
